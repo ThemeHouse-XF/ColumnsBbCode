@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="ThemeHouse_ColumnsBbCode" title="[⌂] Columns BB Code" version_string="1.0.2" version_id="1447261019" url="http://xf.themehouse.io/" install_callback_class="ThemeHouse_Install" install_callback_method="install" uninstall_callback_class="ThemeHouse_Install" uninstall_callback_method="uninstall">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates/>
+  <admin_template_modifications/>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="controller_pre_dispatch" execute_order="10" callback_class="ThemeHouse_Listener_ControllerPreDispatch" callback_method="controllerPreDispatch" active="1" hint="" description=""/>
+    <listener event_id="file_health_check" execute_order="10" callback_class="ThemeHouse_ColumnsBbCode_Listener_FileHealthCheck" callback_method="fileHealthCheck" active="1" hint="" description=""/>
+    <listener event_id="init_dependencies" execute_order="10" callback_class="ThemeHouse_Listener_InitDependencies" callback_method="initDependencies" active="1" hint="" description=""/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="custom_bb_code_columns_desc" version_id="1427357925" version_string="1.0.0"><![CDATA[Displays text in columns.]]></phrase>
+    <phrase title="custom_bb_code_columns_title" global_cache="1" version_id="1427357925" version_string="1.0.0"><![CDATA[Columns]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties/>
+  <templates/>
+  <public_template_modifications>
+    <modification template="bb_code.css" modification_key="th_bbCode_columnsBbCode" description="Adds CSS for columns BB code." execution_order="10" enabled="1" action="preg_replace">
+      <find><![CDATA[#$#]]></find>
+      <replace><![CDATA[.columnsBbCode
+{
+	column-count: 2;
+	column-gap: 8px;
+}
+
+.columnsBbCode[data-columns='3']
+{
+	column-count: 3;
+}
+
+.columnsBbCode[data-columns='4']
+{
+	column-count: 3;
+}]]></replace>
+    </modification>
+    <modification template="footer" modification_key="th_copyrightNotice_columnsBbCode" description="Copyright notice for [⌂] Columns BB Code" execution_order="1" enabled="1" action="callback">
+      <find><![CDATA[/{xen:phrase (?:xenforo|extra)_copyright}/]]></find>
+      <replace><![CDATA[ThemeHouse_Listener_InitDependencies::copyrightNotice]]></replace>
+    </modification>
+  </public_template_modifications>
+  <bb_code_media_sites/>
+  <bb_codes>
+    <bb_code bb_code_id="columns" bb_code_mode="replace" has_option="optional" callback_class="" callback_method="" option_regex="#[2-4]#" trim_lines_after="2" plain_children="0" disable_smilies="0" disable_nl2br="0" disable_autolink="0" allow_empty="0" allow_signature="1" editor_icon_url="" sprite_mode="0" active="1">
+      <replace_html><![CDATA[<div class="columnsBbCode" data-columns="{option}">{text}</div>]]></replace_html>
+      <replace_html_email><![CDATA[]]></replace_html_email>
+      <replace_text><![CDATA[]]></replace_text>
+      <example><![CDATA[[COLUMNS]This will appear on the left.
+
+This will appear on the right.
+So will this.[/COLUMNS]
+[COLUMNS=3]Left
+Center
+Right[/COLUMNS]]]></example>
+    </bb_code>
+  </bb_codes>
+</addon>
